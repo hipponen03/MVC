@@ -53,6 +53,25 @@ def uuenda_element(nimetus, hind, kogus):
     else:
         elemendid[nimetused.index(nimetus)] = {"nimetus":nimetus, "hind":hind, "kogus":kogus}
 
+
+# kustutame konkreetse elemendi
+def kustuta_element(nimetus):
+    global elemendid
+    nimetused = []
+    for element in elemendid:
+        nimetused.append(list(element.values())[0])
+    if nimetus not in nimetused:
+        print("Elementi {} ei saa kustutada, kuna ta ei eksisteeri".format(nimetus))
+    else:
+        elemendid.remove(elemendid[nimetused.index(nimetus)])
+        return "Element {} kustutatud" .format(nimetus)
+
+# kustutame kõik elemendid korraga
+def kustuta_elemendid():
+    global elemendid
+    elemendid.clear()
+
+
 # loome main funktsiooni
 def main():
     # loome katseandmestiku
@@ -66,18 +85,24 @@ def main():
     lisa_elemendid(katse_elemendid)
 
     # testime üksikute elementide lisamist
-    lisa_element("kohupiim", 0.90, 12)
-    lisa_element("leib", 0.80, 5)
+    #lisa_element("kohupiim", 0.90, 12)
+    #lisa_element("leib", 0.80, 5)
 
     # testime elementide lugemist
-    print(loe_elemendid())
+    #print(loe_elemendid())
 
     # testime elemendi lugemist
-    print(loe_element("vein"))
+    #print(loe_element("vein"))
 
     # testime elemendi uuendamist
-    uuenda_element("vein", 10.0, 10)
-    print(loe_element("vein"))
+    #uuenda_element("vein", 10.0, 10)
+    #print(loe_element("vein"))
+
+    # testime elemendi kustutamist
+    #print(kustuta_element("vein"))
+
+    # testime kõikide elementide kustutamist
+    #kustuta_elemendid()
 
 
 # käivitamine
