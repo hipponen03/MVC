@@ -1,5 +1,6 @@
 elemendid = []
 
+
 # lisame ELEMENDI juurde
 def lisa_element(nimetus, hind, kogus):
     global elemendid
@@ -18,14 +19,28 @@ def lisa_elemendid(elementide_nimekiri):
     global elemendid
     elemendid = elementide_nimekiri
 
-# lisame ELEMENDID korraga, aga nii, et tagastame iga kord ühe elemendi
 
+# lisame ELEMENDID korraga, aga nii, et tagastame iga kord ühe elemendi
 def loe_elemendid():
     global elemendid
     loetud_elemendid = []
     for element in elemendid:
         loetud_elemendid.append(element)
     return loetud_elemendid
+
+
+# loeme konkreetse elemendi
+def loe_element(nimetus):
+    global elemendid
+    nimetused = []
+    for element in elemendid:
+        nimetused.append(list(element.values())[0])
+    print(nimetused)
+    if nimetus not in nimetused:
+        return "Elementi {} ei eksisteeri" .format(nimetus)
+    else:
+        return elemendid[nimetused.index(nimetus)]
+
 
 # loome main funktsiooni
 def main():
@@ -39,13 +54,15 @@ def main():
     # testime elementide lisamist
     lisa_elemendid(katse_elemendid)
 
-
     # testime üksikute elementide lisamist
     lisa_element("kohupiim", 0.90, 12)
     lisa_element("leib", 0.80, 5)
 
     # testime elementide lugemist
-    print(loe_elemendid())
+    #print(loe_elemendid())
+
+    # testime elemendi lugemist
+    print(loe_element("piim"))
 
 # käivitamine
 if __name__ == "__main__":
