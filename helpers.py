@@ -1,26 +1,24 @@
+import exceptions
+
 elemendid = []
 
-
-# lisame ELEMENDI juurde
+# lisame ELEMENT juurde
 def lisa_element(nimetus, hind, kogus):
     global elemendid
     nimetused = []
     for element in elemendid:
-        if nimetus in element.values():
-            nimetused.append(nimetus)
+        nimetused.append(list(element.values())[0])
     if nimetus in nimetused:
-        print("Element {} on juba olemas" .format(nimetus))
+        raise exceptions.ElementJubaOlemas("Element {} on juba olemas".format(nimetus))
     else:
         elemendid.append({"nimetus":nimetus, "hind":hind, "kogus":kogus})
-
 
 # lisame ELEMENDID KORRAGA juurde
 def lisa_elemendid(elementide_nimekiri):
     global elemendid
     elemendid = elementide_nimekiri
 
-
-# lisame ELEMENDID korraga, aga nii, et tagastame iga kord ühe elemendi
+# loeme ELEMENDID korraga
 def loe_elemendid():
     global elemendid
     loetud_elemendid = []
@@ -28,33 +26,29 @@ def loe_elemendid():
         loetud_elemendid.append(element)
     return loetud_elemendid
 
-
-# loeme konkreetse elemendi
+# loeme KONKREETNE element
 def loe_element(nimetus):
     global elemendid
     nimetused = []
     for element in elemendid:
-        nimetused.append(list(element.values())[0])
-    print(nimetused)
+            nimetused.append(list(element.values())[0])
     if nimetus not in nimetused:
-        return "Elementi {} ei eksisteeri" .format(nimetus)
+        raise exceptions.ElemendiEiOle("Elementi {} ei eksisteeri".format(nimetus))
     else:
-        return elemendid[nimetused.index(nimetus)]
+       return elemendid[nimetused.index(nimetus)]
 
-
-# uuendame konkreetset elementi
+# uuendame KONKREETSET elementi
 def uuenda_element(nimetus, hind, kogus):
     global elemendid
     nimetused = []
     for element in elemendid:
         nimetused.append(list(element.values())[0])
     if nimetus not in nimetused:
-        print("Elementi {} ei saa uuendada, kuna ta ei eksisteeri" .format(nimetus))
+        print("Elementi {} ei saa uuendada, kuna ta ei eksisteeri".format(nimetus))
     else:
         elemendid[nimetused.index(nimetus)] = {"nimetus":nimetus, "hind":hind, "kogus":kogus}
 
-
-# kustutame konkreetse elemendi
+# kustutame KONKREETSET elementi
 def kustuta_element(nimetus):
     global elemendid
     nimetused = []
@@ -64,48 +58,43 @@ def kustuta_element(nimetus):
         print("Elementi {} ei saa kustutada, kuna ta ei eksisteeri".format(nimetus))
     else:
         elemendid.remove(elemendid[nimetused.index(nimetus)])
-        return "Element {} kustutatud" .format(nimetus)
 
-# kustutame kõik elemendid korraga
+# kustutame KÕIK elemendid
 def kustuta_elemendid():
     global elemendid
     elemendid.clear()
 
-
-# loome main funktsiooni
 def main():
-    # loome katseandmestiku
+    # loome katseandmestik
     katse_elemendid = [
-        {"nimetus": "leib", "hind": 0.80, "kogus": 20},
-        {"nimetus": "piim", "hind": 0.50, "kogus": 15},
-        {"nimetus": "vein", "hind": 5.60, "kogus": 5},
+        {"nimetus": "leib", "hind":0.80, "kogus": 20},
+        {"nimetus": "piim", "hind":0.50, "kogus": 15},
+        {"nimetus": "vein", "hind":5.60, "kogus": 5},
     ]
 
     # testime elementide lisamist
     lisa_elemendid(katse_elemendid)
 
-    # testime üksikute elementide lisamist
-    #lisa_element("kohupiim", 0.90, 12)
-    #lisa_element("leib", 0.80, 5)
+    # testime üksiku elemendi lisamist
+    lisa_element("kohupiim", 0.90, 15)
+    #lisa_element("vein", 5.60, 5)
 
     # testime elementide lugemist
-    #print(loe_elemendid())
-
-    # testime elemendi lugemist
     #print(loe_element("vein"))
+    #print(loe_element("limonaad"))
 
     # testime elemendi uuendamist
-    #uuenda_element("vein", 10.0, 10)
-    #print(loe_element("vein"))
+    uuenda_element("vein", 10.0, 10)
+    print(loe_element("vein"))
 
     # testime elemendi kustutamist
-    #print(kustuta_element("vein"))
+    kustuta_element("vein")
+    print(loe_element("vein"))
 
-    # testime kõikide elementide kustutamist
-    #kustuta_elemendid()
+    # testime elementide kustutamist
+    kustuta_elemendid()
+    print(loe_elemendid())
 
-
-# käivitamine
+# käivitame
 if __name__ == "__main__":
     main()
-
