@@ -17,7 +17,7 @@ pood.kuva_element("piim")
 # elemendi lisamine
 pood.lisa_element("kohuke", 0.60, 15)
 print("lisa veel üks kohuke")
-pood.lisa_element("kohuke", 0.60, 10)
+pood.lisa_element("kohuke", 0.60, 15)
 pood.kuva_element("kohuke")
 # loeme elemendi mis ei eksisteeri
 pood.kuva_element("küpsis")
